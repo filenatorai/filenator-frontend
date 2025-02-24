@@ -4,7 +4,6 @@
 import { useState } from "react";
 import Link from "next/link";
 
-// Define your navigation structure with custom styling for Sign In/Sign Up buttons
 const navItems = [
   {
     label: "Feature",
@@ -92,7 +91,6 @@ const DesktopMenuItem = ({ item }: any) => {
   );
 };
 
-
 const DesktopSubMenuItem = ({ item }: any) => {
   const [open, setOpen] = useState(false);
   return (
@@ -135,7 +133,6 @@ const DesktopSubMenuItem = ({ item }: any) => {
   );
 };
 
-
 // ===== Mobile Menu Components =====
 
 const MobileMenuItem = ({ item }: any) => {
@@ -177,17 +174,13 @@ const MobileMenuItem = ({ item }: any) => {
           )}
         </>
       ) : (
-        <Link
-          href={item.href}
-          className={item.className ? item.className : "block px-4 py-2 text-gray-700 hover:bg-gray-100"}
-        >
+        <Link href={item.href} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
           {item.label}
         </Link>
       )}
     </div>
   );
 };
-
 
 const MobileSubMenuItem = ({ item }: any) => {
   const [open, setOpen] = useState(false);
@@ -229,74 +222,35 @@ const MobileSubMenuItem = ({ item }: any) => {
   );
 };
 
-
 // ===== Main Navbar Component =====
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow sticky top-0 z-50">
+    <nav className="sticky backdrop-blur-md bg-white/50 border border-gray-300 shadow-md top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          {/* Brand */}
+        <div className="flex justify-between  h-16 items-center">
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold">
+            <Link href="/" className="text-2xl font-bold text-black">
               FileFusion
             </Link>
           </div>
-
-          {/* Desktop Menu */}
           <div className="hidden sm:flex sm:items-center sm:space-x-6">
             {navItems.map((item) => (
-              <DesktopMenuItem
-                key={item.href ?? item.label}
-                item={item}
-              />
+              <DesktopMenuItem key={item.href ?? item.label} item={item} />
             ))}
           </div>
-
-          {/* Mobile Menu Button */}
           <div className="sm:hidden flex items-center">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-gray-700 hover:text-gray-900 focus:outline-none"
-            >
-              <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                {mobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              <svg className="h-6  w-6 text-black" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                {mobileMenuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
               </svg>
             </button>
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="sm:hidden">
-          <div className="pt-2 pb-3 space-y-1">
-            {navItems.map((item) => (
-              <MobileMenuItem
-                key={item.href ?? item.label}
-                item={item}
-              />
-            ))}
-          </div>
-        </div>
-      )}
+      {mobileMenuOpen && <div className="sm:hidden bg-white/50 backdrop-blur-md border-t border-gray-300">{navItems.map((item) => <MobileMenuItem key={item.href ?? item.label} item={item} />)}</div>}
     </nav>
   );
 };
