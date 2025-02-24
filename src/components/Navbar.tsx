@@ -31,19 +31,19 @@ const navItems = [
     label: "SignIn",
     href: "/signin",
     className:
-      "px-4 py-2 rounded-sm text-blue-500 hover:bg-blue-50 hover:text-blue-600 transition duration-300 shadow-sm",
+      "px-4 py-2 rounded text-blue-500 hover:bg-blue-50 hover:text-blue-600 transition duration-300 shadow-sm",
   },
   {
     label: "SignUp",
     href: "/signup",
     className:
-      "px-4 py-2 rounded-sm bg-blue-500 text-white hover:bg-blue-600 transition duration-300 shadow-sm",
+      "px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition duration-300 shadow-sm",
   },
 ];
 
 // ===== Desktop Menu Components =====
 
-const DesktopMenuItem = ({ item }) => {
+const DesktopMenuItem = ({ item }: any) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">
@@ -58,12 +58,15 @@ const DesktopMenuItem = ({ item }) => {
           {open && (
             <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
               <div className="py-1">
-                {item.submenu.map((subItem, idx) =>
+                {item.submenu.map((subItem: any) =>
                   subItem.submenu ? (
-                    <DesktopSubMenuItem key={idx} item={subItem} />
+                    <DesktopSubMenuItem
+                      key={subItem.href || subItem.label}
+                      item={subItem}
+                    />
                   ) : (
                     <Link
-                      key={idx}
+                      key={subItem.href || subItem.label}
                       href={subItem.href}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
@@ -87,7 +90,8 @@ const DesktopMenuItem = ({ item }) => {
   );
 };
 
-const DesktopSubMenuItem = ({ item }) => {
+
+const DesktopSubMenuItem = ({ item }: any) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">
@@ -96,16 +100,26 @@ const DesktopSubMenuItem = ({ item }) => {
         className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center"
       >
         {item.label}
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
         </svg>
       </button>
       {open && (
         <div className="absolute left-full top-0 mt-0 ml-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20">
           <div className="py-1">
-            {item.submenu.map((child, idx) => (
+            {item.submenu.map((child: any) => (
               <Link
-                key={idx}
+                key={child.href || child.label}
                 href={child.href}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
@@ -119,9 +133,10 @@ const DesktopSubMenuItem = ({ item }) => {
   );
 };
 
+
 // ===== Mobile Menu Components =====
 
-const MobileMenuItem = ({ item }) => {
+const MobileMenuItem = ({ item }: any) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-t border-gray-200">
@@ -133,17 +148,22 @@ const MobileMenuItem = ({ item }) => {
           >
             {item.label}
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
           {open && (
             <div className="pl-4">
-              {item.submenu.map((subItem, idx) =>
+              {item.submenu.map((subItem: any) =>
                 subItem.submenu ? (
-                  <MobileSubMenuItem key={idx} item={subItem} />
+                  <MobileSubMenuItem key={subItem.href || subItem.label} item={subItem} />
                 ) : (
                   <Link
-                    key={idx}
+                    key={subItem.href || subItem.label}
                     href={subItem.href}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
@@ -166,7 +186,8 @@ const MobileMenuItem = ({ item }) => {
   );
 };
 
-const MobileSubMenuItem = ({ item }) => {
+
+const MobileSubMenuItem = ({ item }: any) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-t border-gray-200">
@@ -175,15 +196,25 @@ const MobileSubMenuItem = ({ item }) => {
         className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex justify-between items-center"
       >
         {item.label}
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
         </svg>
       </button>
       {open && (
         <div className="pl-4">
-          {item.submenu.map((child, idx) => (
+          {item.submenu.map((child: any) => (
             <Link
-              key={idx}
+              key={child.href || child.label}
               href={child.href}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
@@ -195,6 +226,7 @@ const MobileSubMenuItem = ({ item }) => {
     </div>
   );
 };
+
 
 // ===== Main Navbar Component =====
 
@@ -214,8 +246,11 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden sm:flex sm:items-center sm:space-x-6">
-            {navItems.map((item, idx) => (
-              <DesktopMenuItem key={idx} item={item} />
+            {navItems.map((item) => (
+              <DesktopMenuItem
+                key={item.href ?? item.label}
+                item={item}
+              />
             ))}
           </div>
 
@@ -227,9 +262,19 @@ const Navbar = () => {
             >
               <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 )}
               </svg>
             </button>
@@ -241,8 +286,11 @@ const Navbar = () => {
       {mobileMenuOpen && (
         <div className="sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
-            {navItems.map((item, idx) => (
-              <MobileMenuItem key={idx} item={item} />
+            {navItems.map((item) => (
+              <MobileMenuItem
+                key={item.href ?? item.label}
+                item={item}
+              />
             ))}
           </div>
         </div>
